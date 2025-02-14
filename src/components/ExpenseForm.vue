@@ -1,7 +1,7 @@
 <template>
    <form @submit.prevent="submitForm">
-      <div class='p-4 bg-white rounded-lg w-1/2'>
-         <h3 class="mb-1">Enter an Expense</h3>
+      <div class='bg-white rounded-lg'>
+         <h3 class="mb-1 text-center text-green-800 bg-blue-200 font-bold">Enter an expense:</h3>
          <div>
             <input v-model.trim="description" placeholder='Description' class='border p-2 rounded w-full h-7' />
             <p v-if="errors.description" class="text-red-500 text-xs font-semibold">{{ errors.description }}</p>
@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue';
+import type { Expense } from "@/types/Expense";
 
 type Errors = { description: string; amount: number; };
 type FieldsToValidate = 'description' | 'amount';
@@ -50,7 +51,12 @@ watch(amount, () => validateField('amount'));
 const submitForm = async (): void => {
    validateForm();
    if (!errors.value.description && !errors.value.amount) {
-      const newExpense = { description: description.value, amount: amount.value };
+      const newExpense: Expense = {
+         id: crypto.randomUUID(),
+         description: description.value,
+         amount: amount.value,
+         isDeleted: false
+      };
       // Add expense to LocalStorage:
       localStorage.setItem('expenses', JSON.stringify([...JSON.parse(localStorage.getItem('expenses') || '[]'), newExpense]));
       description.value = '';

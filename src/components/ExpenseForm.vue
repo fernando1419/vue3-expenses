@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, nextTick } from 'vue';
+import { ref, reactive, watch, nextTick, defineEmits } from 'vue';
 import type { Expense } from "@/types/Expense";
 
 type Error = { description?: string; amount?: string; };
@@ -27,6 +27,7 @@ type FieldsToValidate = 'description' | 'amount';
 const description = ref('');
 const amount = ref(0);
 let errors = reactive(<Error>{});
+const emit = defineEmits(["expenseAdded"]);
 const descriptionErrorMessage = 'Description field is required and must be at least 3 characters long.';
 const amountErrorMessage = 'Amount field is required and must be greater than 0.';
 
@@ -63,6 +64,7 @@ const submitForm = async (): Promise<void> => {
       amount.value = 0;
       errors = {};
       await nextTick();
+      emit("expenseAdded");
    }
 };
 

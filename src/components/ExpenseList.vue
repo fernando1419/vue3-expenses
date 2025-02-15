@@ -10,38 +10,48 @@
                Delete
             </button>
          </div>
-         <div class='text-right font-bold mt-2'>Total: ${{ 200 }}</div>
+         <div class='text-right font-bold mt-2'>Total: ${{ expensesTotal }}</div>
       </div>
       <div v-else>No expenses found.</div>
-
    </div>
+
+   <ExpenseForm @expenseAdded='refreshList' />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Expense } from "@/types/Expense";
+import ExpenseForm from "@components/ExpenseForm.vue";
 
 const expensesList = ref(<Expense[]>[]);
 const expensesTotal = ref(0);
-const getExpensesList = () => JSON.parse(localStorage.getItem('expenses') || '[]');
-const getExpensesTotal = (): number => getExpensesList().reduce((acc: number, expense: Expense) => acc + expense.amount, 0);
+
+const getExpensesList = () => JSON.parse(localStorage.getItem('expenses') || '[]').filter((expense: Expense) => !expense.isDeleted);
+
+const getExpensesTotal = (): number => getExpensesList()
+   .filter((expense: Expense) => !expense.isDeleted)
+   .reduce((acc: number, expense: Expense) => acc + expense.amount, 0);
+
+function refreshList(): void {
+   expensesList.value = getExpensesList();
+   expensesTotal.value = getExpensesTotal();
+}
+
 
 const deleteExpense = (id: string) => {
    expensesList.value = getExpensesList();
    if (expensesList.value.length === 0) return;
 
-   console.log(id);
+   console.log(`Expense to delete: ${id}`);
    const expenseToDelete: Expense | undefined = expensesList.value.find((expense: Expense) => expense.id === id);
    if (expenseToDelete) {
       expenseToDelete.isDeleted = true;
       localStorage.setItem('expenses', JSON.stringify(expensesList.value));
-      expensesList.value = getExpensesList().filter((expense: Expense) => !expense.isDeleted);
+      refreshList();
    }
 };
 
 onMounted(() => {
-   expensesList.value = getExpensesList().filter((expense: Expense) => !expense.isDeleted);
-   console.log(expensesList.value);
-   expensesTotal.value = getExpensesTotal();
+   refreshList();
 });
 </script>

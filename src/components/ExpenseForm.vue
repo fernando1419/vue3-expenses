@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, nextTick, defineEmits } from 'vue';
+import { ref, reactive, watch, nextTick } from 'vue';
 import type { Expense } from "@/types/Expense";
 
 type Error = { description?: string; amount?: string; };

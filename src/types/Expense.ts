@@ -1,6 +1,6 @@
 export interface Expense {
-   id: string,
-   description: string,
-   amount: number,
+   id: string;
+   description: string;
+   amount: number;
    isDeleted: boolean;
 }

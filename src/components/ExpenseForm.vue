@@ -18,39 +18,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue';
+import { ref, reactive, watch, nextTick } from 'vue';
 import type { Expense } from "@/types/Expense";
 
-type Errors = { description: string; amount: number; };
+type Error = { description?: string; amount?: string; };
 type FieldsToValidate = 'description' | 'amount';
 
 const description = ref('');
 const amount = ref(0);
-const errors = ref<Errors>({});
+let errors = reactive(<Error>{});
 const descriptionErrorMessage = 'Description field is required and must be at least 3 characters long.';
 const amountErrorMessage = 'Amount field is required and must be greater than 0.';
 
 const validateForm = () => {
-   errors.value = {};
+   errors = {};
    validateField('description');
    validateField('amount');
 };
 
 const validateField = (field: FieldsToValidate) => {
    if (field === 'description') {
-      errors.value.description = description.value.length < 3 ? descriptionErrorMessage : '';
+      errors.description = description.value.length < 3 ? descriptionErrorMessage : '';
    }
    if (field === 'amount') {
-      errors.value.amount = amount.value <= 0 ? amountErrorMessage : '';
+      errors.amount = amount.value <= 0 ? amountErrorMessage : '';
    }
 };
 
 watch(description, () => validateField('description'));
 watch(amount, () => validateField('amount'));
 
-const submitForm = async (): void => {
+const submitForm = async (): Promise<void> => {
    validateForm();
-   if (!errors.value.description && !errors.value.amount) {
+   if (!errors.description && !errors.amount) {
       const newExpense: Expense = {
          id: crypto.randomUUID(),
          description: description.value,
@@ -61,7 +61,7 @@ const submitForm = async (): void => {
       localStorage.setItem('expenses', JSON.stringify([...JSON.parse(localStorage.getItem('expenses') || '[]'), newExpense]));
       description.value = '';
       amount.value = 0;
-      errors.value = {};
+      errors = {};
       await nextTick();
    }
 };

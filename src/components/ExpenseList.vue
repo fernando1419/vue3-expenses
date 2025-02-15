@@ -19,19 +19,19 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { Expense } from "@/types/expense";
+import { Expense } from "@/types/Expense";
 
-const expensesList = ref([]);
+const expensesList = ref(<Expense[]>[]);
 const expensesTotal = ref(0);
 const getExpensesList = () => JSON.parse(localStorage.getItem('expenses') || '[]');
-const getExpensesTotal = () => getExpensesList().reduce((acc: number, expense: Expense) => acc + expense.amount, 0);
+const getExpensesTotal = (): number => getExpensesList().reduce((acc: number, expense: Expense) => acc + expense.amount, 0);
 
 const deleteExpense = (id: string) => {
    expensesList.value = getExpensesList();
    if (expensesList.value.length === 0) return;
 
    console.log(id);
-   const expenseToDelete = expensesList.value.find((expense: Expense) => expense.id === id);
+   const expenseToDelete: Expense | undefined = expensesList.value.find((expense: Expense) => expense.id === id);
    if (expenseToDelete) {
       expenseToDelete.isDeleted = true;
       localStorage.setItem('expenses', JSON.stringify(expensesList.value));

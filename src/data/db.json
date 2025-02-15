@@ -1,0 +1,35 @@
+{
+  "users": [{ "id": 1, "email": "admin@admin.com", "password": "123456" }],
+  "expenses": [
+    {
+      "id": "20226b6b-acb8-4bef-91b6-b8930d7b399e",
+      "description": "Buy Food",
+      "amount": 100,
+      "isDeleted": false
+    },
+    {
+      "id": "d7df8678-4e1d-40f4-bc0f-9f1eac19d71f",
+      "description": "Pay Internet",
+      "amount": 200,
+      "isDeleted": false
+    },
+    {
+      "id": "9ea8b792-893b-440d-8ff8-809d66fb1a52",
+      "description": "Pay children's school",
+      "amount": 300,
+      "isDeleted": false
+    },
+    {
+      "id": "cab3bc92-4d03-4137-bfa4-0d10ca4b349a",
+      "description": "Buy some ice-cream",
+      "amount": 40,
+      "isDeleted": false
+    },
+    {
+      "id": "d47b3b61-6844-4ea1-bb55-a63cd134328b",
+      "description": "Buy book of politics",
+      "amount": 50,
+      "isDeleted": false
+    }
+  ]
+}

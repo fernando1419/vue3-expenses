@@ -12,7 +12,7 @@
          </div>
          <div class='text-right font-bold mt-2'>Total: ${{ expensesTotal }}</div>
       </div>
-      <div v-else>No expenses found.</div>
+      <div v-else>No expenses in the list yet.</div>
    </div>
 
    <ExpenseForm @expenseAdded='refreshList' />

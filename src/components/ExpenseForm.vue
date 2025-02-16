@@ -3,14 +3,17 @@
       <div class='bg-white rounded-lg'>
          <h3 class="mb-1 text-center text-green-800 bg-blue-200 font-bold">Enter an expense:</h3>
          <div>
-            <input v-model.trim="description" placeholder='Description' class='border p-2 rounded w-full h-7' />
+            <input v-model.trim="description" placeholder='Description'
+               class="w-full text-gray-800 text-sm border border-gray-300 px-2 py-1 rounded-md outline-blue-600" />
             <p v-if="errors.description" class="text-red-500 text-xs font-semibold">{{ errors.description }}</p>
          </div>
          <div>
-            <input v-model.number="amount" type='number' class='border p-2 rounded w-full mt-2 h-7' />
+            <input v-model.number="amount" type='number'
+               class='w-full text-gray-800 text-sm border border-gray-300 px-2 py-1 rounded-md outline-blue-600 mt-2' />
             <p v-if="errors.amount" class="text-red-500 text-xs font-semibold">{{ errors.amount }}</p>
          </div>
-         <button type="submit" class='my-2 px-4 py-1 bg-blue-500 text-white rounded cursor-pointer float-right text-md'>
+         <button type="submit"
+            class="py-2 px-4 my-2 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none float-right">
             Add
          </button>
       </div>

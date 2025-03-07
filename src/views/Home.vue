@@ -1,22 +1,24 @@
-<script setup>
+<script setup lang="ts">
 // import { useAuthStore } from '@/stores/auth';
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 // const authStore = useAuthStore();
-// const router = useRouter();
+const router = useRouter();
 
 const goToDashboard = () => {
-   // router.push('/dashboard');
-   window.location.href = '/dashboard';
+   router.push('/dashboard');
+   // window.location.href = '/dashboard';
 };
 
 const goToLogin = () => {
-   // router.push('/login');
-   window.location.href = '/login';
+   router.push('/login');
+   // window.location.href = '/login';
 };
 </script>
 
 <template>
+   <router-view />
+
    <div
       class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
       <div class="text-center max-w-2xl p-6">
@@ -24,7 +26,7 @@ const goToLogin = () => {
          <p class="text-lg mb-6">Manage your expenses effortlessly.</p>
 
          <div class="space-x-4">
-            <button v-if="false" @click="goToDashboard"
+            <button v-if="true" @click="goToDashboard"
                class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-lg transition">
                Go to Dashboard
             </button>

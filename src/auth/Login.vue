@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="w-full">
       <h3 class="text-gray-800 text-center text-2xl font-bold">Sign in</h3>
       <form @submit.prevent="login">
          <!-- Username -->
@@ -66,6 +66,7 @@ const login = async () => {
          const token = `fake-token-for-${user.id}`;  // fake token
          localStorage.setItem('authToken', token);
          errorMessage.value = '';
+         console.log('Login successful', token);
          window.location.href = '/';
       }
    } catch (error) {

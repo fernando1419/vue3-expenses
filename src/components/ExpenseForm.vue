@@ -1,7 +1,7 @@
 <template>
    <form @submit.prevent="submitForm">
       <div class='bg-white rounded-lg'>
-         <h3 class="mb-1 text-center text-green-800 bg-blue-200 font-bold">Enter an expense:</h3>
+         <h3 class="mb-1 text-left text-green-800 bg-blue-200 font-bold">Enter an expense:</h3>
          <div>
             <input v-model.trim="description" placeholder='Description'
                class="w-full text-gray-800 text-sm border border-gray-300 px-2 py-1 rounded-md outline-blue-600" />
